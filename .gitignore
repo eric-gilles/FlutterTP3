@@ -1,0 +1,39 @@
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log/OS Files
+*.log
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+output.json
+
+# IntelliJ
+*.iml
+.idea/
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# VsCode
+.vscode/
+.dart-tool/
+
+# Firebase Files
+firebase.json
+firebase_options.dart
+google-services.json
+
+# Keystore files
+*.jks
+*.keystore
+
+# Android Profiling
+*.hprof
