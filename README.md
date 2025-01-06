@@ -31,7 +31,7 @@ Elle possède les fonctionnalités suivantes :
 ## Accès en ligne
 
 Également disponible en ligne via le lien [Appetize](https://appetize.io/) suivant :
-- [Quiz App Final - Appetize](https://appetize.io/app/b_ud5okbdylv5tnjglsrbsisd6ly)
+- [Quiz App Final - Appetize](https://appetize.io/app/b_pjtit7m5didap4zmajmlg74d4e)
 
 
 ## Prérequis
@@ -54,15 +54,19 @@ Elle possède les fonctionnalités suivantes :
     ```bash
     dart pub global activate flutterfire_cli
     ```
-4. Connectez-vous à Firebase :
+4. Ajouter au PATH :
+    ```bash
+    export PATH="$PATH":"$HOME/.pub-cache/bin"
+    ```
+5. Connectez-vous à Firebase :
     ```bash
     firebase login
     ```
-5. Initialiser Firebase dans le projet :
+6. Initialiser Firebase dans le projet :
     ```bash
     flutterfire configure --project=nom_de_votre_projet_firebase
     ```
-6. Installez les dépendances :
+7. Installez les dépendances :
     ```bash
     flutter pub get
     ```
