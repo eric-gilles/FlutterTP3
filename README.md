@@ -46,7 +46,7 @@ Elle possède les fonctionnalités suivantes :
     ```bash
     git clone https://github.com/eric-gilles/FlutterTP3
     ```
-2. Accédez au répertoire du projet souhaité :
+2. Accédez au répertoire de l'application :
     ```bash
     cd FlutterTP3/quiz_app_final
     ```
