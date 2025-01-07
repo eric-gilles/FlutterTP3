@@ -4,7 +4,7 @@ import 'package:quiz_app_final/presentation/widgets/quiz_form_widget.dart';
 class QuizFormPage extends StatelessWidget {
   final Function(int) onNavigateToPage;
 
-  const QuizFormPage({Key? key, required this.onNavigateToPage}) : super(key: key);
+  const QuizFormPage({super.key, required this.onNavigateToPage});
 
   @override
   Widget build(BuildContext context) {
