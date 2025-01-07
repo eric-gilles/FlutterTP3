@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quiz_app_final/data/services/auth_service.dart';
 
-import 'package:quiz_app_final/screens/quiz_form_page.dart';
-import 'package:quiz_app_final/screens/quiz_home_page.dart';
-import 'package:quiz_app_final/screens/quiz_list_page_.dart';
-import 'package:quiz_app_final/screens/quiz_page.dart';
-import 'package:quiz_app_final/screens/quiz_profile_page.dart';
-import 'package:quiz_app_final/screens/quiz_result_page.dart';
-import 'package:quiz_app_final/screens/quiz_signin.dart';
+import 'package:quiz_app_final/presentation/screens/quiz_connect_page.dart';
+import 'package:quiz_app_final/presentation/screens/quiz_form_page.dart';
+import 'package:quiz_app_final/presentation/screens/home_page.dart';
+import 'package:quiz_app_final/presentation/screens/quiz_list_page_.dart';
+import 'package:quiz_app_final/presentation/screens/quiz_page.dart';
+import 'package:quiz_app_final/presentation/screens/profile_page.dart';
+import 'package:quiz_app_final/presentation/screens/quiz_result_page.dart';
+import 'package:quiz_app_final/presentation/screens/signin_page.dart';
+import 'package:quiz_app_final/presentation/screens/register_page.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -16,11 +20,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const QuizApp());
+  AuthService authService = AuthService();
+  runApp(QuizApp(authService: authService));
 }
 
 class QuizApp extends StatefulWidget {
-  const QuizApp({super.key});
+  const QuizApp({super.key, required this.authService});
+  final AuthService authService;
 
   @override
   State<QuizApp> createState() => _QuizAppState();
@@ -46,8 +52,7 @@ class _QuizAppState extends State<QuizApp> {
   }
 
   Future<bool> isAuthenticated() async {
-    User? user = FirebaseAuth.instance.currentUser;
-    return user != null;
+    return widget.authService.isLoggedIn;
   }
 
   @override
@@ -102,7 +107,7 @@ class _QuizAppState extends State<QuizApp> {
               body: [
                 QuizHomePage(onNavigateToPage: setCurrentPage),
                 const QuizListPage(),
-                SignInScreen(onNavigateToPage: setCurrentPage),
+                const ConnectionPage(),
               ][currentIndex],
               bottomNavigationBar: BottomNavigationBar(
                 currentIndex: currentIndex,
@@ -133,6 +138,8 @@ class _QuizAppState extends State<QuizApp> {
         },
       ),
       routes: {
+        '/signin': (context) => const SignInPage(),
+        '/register': (context) => const RegisterPage(),
         '/quiz': (context) {
           final String categoryIndex = ModalRoute.of(context)?.settings.arguments as String;
           return QuizPage(categoryIndex: categoryIndex, title: 'Questions',);

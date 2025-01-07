@@ -5,7 +5,7 @@ import 'package:quiz_app_final/data/models/question.dart';
 class QuizService{
   final FirebaseFirestore _firebaseFireStore = FirebaseFirestore.instance;
 
-  // Méthode pour récupérer les catégories de quiz
+  /// Méthode pour récupérer les catégories de quiz
   Stream<List<Category>> getCategories() {
     return _firebaseFireStore.collection('categories').snapshots().map((QuerySnapshot snapshot) {
       return snapshot.docs.map((doc) {
@@ -18,7 +18,7 @@ class QuizService{
     });
   }
 
-  // Méthode pour récupérer la catégorie par ID
+  /// Méthode pour récupérer la catégorie par ID
   Future<Category> getCategory(String categoryId) async {
     try {
       // Récupérer la catégorie
@@ -44,7 +44,7 @@ class QuizService{
     }
   }
 
-  // Méthode pour récupérer les questions d'une catégorie
+  /// Méthode pour récupérer les questions d'une catégorie
   Future<List<Question>> getQuestionsForCategory(String categoryId) async {
     try {
       QuerySnapshot questionsSnapshot = await _firebaseFireStore
@@ -69,21 +69,16 @@ class QuizService{
     }
   }
 
-  // Méthode combinée pour récupérer la catégorie avec ses questions
+  /// Méthode combinée pour récupérer la catégorie avec ses questions
   Future<Category> getCategoryWithQuestions(String categoryId) async {
-    // Récupérer la catégorie
-    Category category = await getCategory(categoryId);
-
-    // Récupérer les questions pour la catégorie
-    List<Question> questions = await getQuestionsForCategory(categoryId);
-
-    // Assigner les questions à la catégorie
-    category.questions = questions;
+    Category category = await getCategory(categoryId); // Récupérer la catégorie
+    List<Question> questions = await getQuestionsForCategory(categoryId); // Récupérer les questions pour la catégorie
+    category.questions = questions; // Assigner les questions à la catégorie
 
     return category;
   }
 
-  // Méthode d'ajout d'une catégorie et ses questions
+  /// Méthode d'ajout d'une catégorie et ses questions
   Future<void> addQuiz(Category category) async {
     try {
       // Ajouter la catégorie dans Firestore

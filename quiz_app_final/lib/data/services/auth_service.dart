@@ -1,46 +1,39 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter/material.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  User? get currentUser => _auth.currentUser;
+
+  bool get isLoggedIn => _auth.currentUser != null;
+
+  /// Méthode pour se connecter avec email et mot de passe
   Future<void> signInWithEmail({
     required String email,
-    required String password,
-    required BuildContext context,
-    required Function(int) onNavigateToPage,
+    required String password
   }) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-      if (_auth.currentUser != null) {
-        onNavigateToPage(2); // Redirige vers la page profil
-      }
     } catch (e) {
-      _showErrorSnackBar(context, "Erreur de connexion : ${e.toString()}");
+      print("Erreur de connexion : ${e.toString()}");
     }
   }
 
+  /// Méthode pour créer un compte avec email et mot de passe
   Future<void> createUserWithEmail({
     required String email,
-    required String password,
-    required BuildContext context,
-    required Function(int) onNavigateToPage,
+    required String password
   }) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      if (_auth.currentUser != null) {
-        onNavigateToPage(2); // Redirige vers la page profil
-      }
     } catch (e) {
-      _showErrorSnackBar(context, "Erreur de création de compte : ${e.toString()}");
+      print("Erreur de création de compte : ${e.toString()}");
     }
   }
 
-  Future<UserCredential?> signInWithGoogle({
-    required BuildContext context,
-    required Function(int) onNavigateToPage,
-  }) async {
+  /// Méthode pour se connecter avec Google
+  Future<UserCredential?> signInWithGoogle() async {
     try {
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       GoogleSignInAuthentication? googleAuth = await googleUser!.authentication;
@@ -50,22 +43,20 @@ class AuthService {
       );
       UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-      if (_auth.currentUser != null) {
-        onNavigateToPage(2);
-      }
       return userCredential;
     } catch (e) {
-      _showErrorSnackBar(context, "Erreur de connexion avec Google : ${e.toString()}");
+      print("Erreur de connexion avec Google : ${e.toString()}");
     }
     return null;
   }
 
-  void _showErrorSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        backgroundColor: Colors.redAccent,
-      ),
-    );
+  /// Méthode pour se déconnecter
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
+
+  /// Méthode pour envoyer un email de réinitialisation de mot de passe
+  Future<void> sendPasswordResetEmail(String email) async {
+    await _auth.sendPasswordResetEmail(email: email);
   }
 }
