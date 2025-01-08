@@ -11,7 +11,8 @@ class SignInWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return SingleChildScrollView(
+      child: Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -113,9 +114,38 @@ class SignInWidget extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(height: 8.0),
+              TextButton(
+                onPressed: () {
+                  if (_emailController.text.isNotEmpty) {
+                    _authService.sendPasswordResetEmail(_emailController.text);
+                  }else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Veuillez entrer votre email'),
+                      ),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Mot de passe oublié ?',
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 14, fontStyle: FontStyle.italic),
+                ),
+              ),
+              const SizedBox(height: 2.0),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                child: const Text(
+                  'Pas encore inscrit ? S\'inscrire',
+                  style: TextStyle(color: Colors.blueAccent, fontSize: 14, fontStyle: FontStyle.italic),
+                ),
+              ),
             ],
           ),
         ),
+      ),
       ),
     );
   }

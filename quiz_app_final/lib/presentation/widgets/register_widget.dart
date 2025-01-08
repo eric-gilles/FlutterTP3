@@ -136,6 +136,16 @@ class RegisterWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 8.0),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/signin');
+                  },
+                  child: const Text(
+                    'Déjà inscrit ? Se connecter',
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 14, fontStyle: FontStyle.italic),
+                  ),
+                ),
               ],
             ),
           ),
