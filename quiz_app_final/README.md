@@ -31,7 +31,7 @@ Elle possède les fonctionnalités suivantes :
 ## Accès en ligne
 
 Également disponible en ligne via le lien [Appetize](https://appetize.io/) suivant :
-- [Quiz App Final - Appetize](https://appetize.io/app/b_f5sploky6t4hopquotvkipuyxq)
+- [Quiz App Final - Appetize](https://appetize.io/app/b_gk2difjgjvrkddsrbg77i5lvii)
 
 
 ## Prérequis
